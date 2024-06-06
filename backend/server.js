@@ -40,7 +40,7 @@ db.on("error", (error) => console.error("MongoDB connection error:", error));
 db.once("open", () => console.log("MongoDB connection established"));
 
 const corsOptions = {
-  origin:[ "http://localhost:3000","https://vercel.com/amanpreetheyars-projects/websocket-application"],
+  origin:[ "http://localhost:3000","https://websocket-application-git-main-amanpreetheyars-projects.vercel.app/"],
 };
 
 app.use(cors(corsOptions));
