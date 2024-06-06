@@ -99,7 +99,7 @@ app.get("/messages", async (req, res) => {
       ]
     }).sort({ createdAt: 1 });
 
-
+console.log(messages, "all messages====>")
     res.status(200).json(messages);
   } catch (error) {
     console.error("Error fetching messages:", error);
