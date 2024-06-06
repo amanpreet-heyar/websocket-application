@@ -13,7 +13,7 @@
     ],
     "routes": [
       { "src": "/(.*)", "dest": "/backend/server.js" },
-      { "src": "/(.*)", "dest": "/chat-application/build/$1" }
+      { "src": "/(.*)", "dest": "/chat-application/$1" }
     ]
   }
   
