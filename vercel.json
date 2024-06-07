@@ -1,7 +1,10 @@
 {
     "version": 2,
     "builds": [
-   
+        {
+            "src": "backend/server.js",
+            "use": "@vercel/node"
+          },
       {
         "src": "chat-application/package.json",
         "use": "@vercel/static-build",
@@ -11,6 +14,7 @@
     "routes": [
       { "src": "/(.*)", "dest": "/backend/server.js" },
       { "src": "/(.*)", "dest": "/chat-application/build/$1" }
-    ]
+    ],
+    "outputDirectory": "build"
   }
   
