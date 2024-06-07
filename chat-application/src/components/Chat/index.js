@@ -19,7 +19,7 @@ const Chat = ({ user }) => {
   const fileUploadRef = useRef(null);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:5000");
+    const newSocket = io("https://websocket-application-server-2ig3v0xbc-amanpreetheyars-projects.vercel.app/");
     setSocket(newSocket);
 
     newSocket.emit("addUser", { userId: user.id, userName: user.userName });
