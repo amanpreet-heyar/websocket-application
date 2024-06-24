@@ -16,12 +16,13 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    // origin: "http://localhost:3000",
+    origin:"https://websocket-application-client-qc8a11khl-amanpreetheyars-projects.vercel.app/",
     methods: ["GET", "POST"],
   },
 });
 
-const PORT = 5000;
+const PORT =  5000;
 const MONGODB_URI = process.env.MONGODB_URI ||"mongodb+srv://amanpreet:61yXUNq8KTOa30Np@cluster0.1ezl4s6.mongodb.net/application"
 
 // MongoDB connection
@@ -40,8 +41,12 @@ db.on("error", (error) => console.error("MongoDB connection error:", error));
 db.once("open", () => console.log("MongoDB connection established"));
 
 const corsOptions = {
-  origin:[ "http://localhost:3000","https://websocket-application-client.vercel.app/"],
+  origin: [
+    "http://localhost:3000",
+    "https://websocket-application-client-git-main-amanpreetheyars-projects.vercel.app"
+  ],
 };
+
 
 app.use(cors(corsOptions));
 app.use(express.json());
