@@ -16,12 +16,17 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: [
-      "http://localhost:3000",
-      "https://websocket-application-client-git-main-amanpreetheyars-projects.vercel.app"
-    ],
-    methods: ["GET", "POST"],
-    credentials: true
+    // origin: [
+    //   "http://localhost:3000",
+    //   "https://websocket-application-client-git-main-amanpreetheyars-projects.vercel.app"
+    // ],
+    // methods: ["GET", "POST"],
+    // credentials: true
+    origin: '*',
+    methods: '*',
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+    
   },
 });
 
