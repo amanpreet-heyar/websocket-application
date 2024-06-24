@@ -16,19 +16,20 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    // origin: [
-    //   "http://localhost:3000",
-    //   "https://websocket-application-client-git-main-amanpreetheyars-projects.vercel.app"
-    // ],
-    // methods: ["GET", "POST"],
-    // credentials: true
     origin: '*',
-    methods: '*',
+    methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
-    
   },
 });
+
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
+
 
 const PORT =  5000;
 const MONGODB_URI = process.env.MONGODB_URI ||"mongodb+srv://amanpreet:61yXUNq8KTOa30Np@cluster0.1ezl4s6.mongodb.net/application"
@@ -48,18 +49,18 @@ const db = mongoose.connection;
 db.on("error", (error) => console.error("MongoDB connection error:", error));
 db.once("open", () => console.log("MongoDB connection established"));
 
-const corsOptions = {
-  // origin: [
-  //   "http://localhost:3000",
-  //   "https://websocket-application-client-git-main-amanpreetheyars-projects.vercel.app"
-  // ],
-  // methods: ["GET", "POST"],
-  // credentials: true
-  origin: '*',
-  methods: '*',
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-};
+// const corsOptions = {
+//   // origin: [
+//   //   "http://localhost:3000",
+//   //   "https://websocket-application-client-git-main-amanpreetheyars-projects.vercel.app"
+//   // ],
+//   // methods: ["GET", "POST"],
+//   // credentials: true
+//   origin: '*',
+//   methods: '*',
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+//   credentials: true,
+// };
 
 
 app.use(cors());
@@ -72,7 +73,7 @@ app.post("/login", (req, res) => {
   User.findOne({ email: email }).then((user) => {
     if (user) {
       if (user.password === password) {
-        res.json({ message: "Success",   
+        res.json({ message: "Success",  
         user: {
           id: user._id,
           email: user.email,
