@@ -17,7 +17,7 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     // origin: "http://localhost:3000",
-    origin:"https://websocket-application-client-qc8a11khl-amanpreetheyars-projects.vercel.app/",
+    origin:"https://websocket-application-client-git-main-amanpreetheyars-projects.vercel.app",
     methods: ["GET", "POST"],
   },
 });
