@@ -9,47 +9,24 @@ const Login = ({ setUser }) => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        fetch("https://websocket-application-server-git-main-amanpreetheyars-projects.vercel.app/login", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'true' ,
-            },
-            body: JSON.stringify({ email, password }),
-        })
-        .then(response => response.json())
-        .then(result => {
-            console.log(result);
-            if (result.message === "Success") {
-                setUser(result.user);
-                navigate("/chat");
-            } else {
-                alert("You are not registered to this service");
-                navigate("/signup");
-            }
-        })
-        .catch(err => console.log(err));
+        // axios.post("http://localhost:5000/login",{email,password})
+        axios.post("https://websocket-application-server-git-main-amanpreetheyars-projects.vercel.app/login", { email, password })
+            .then(result => {
+                console.log(result);
+                if (result.data.message === "Success") {
+                    setUser(result.data.user);
+                    navigate("/chat");
+                } else {
+                    alert("You are not registered to this service");
+                    navigate("/signup");
+                }
+            })
+            .catch(err => console.log(err));
     };
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     // axios.post("http://localhost:5000/login",{email,password})
-    //     axios.post("https://websocket-application-server-git-main-amanpreetheyars-projects.vercel.app/login", { email, password })
-    //         .then(result => {
-    //             console.log(result);
-    //             if (result.data.message === "Success") {
-    //                 setUser(result.data.user);
-    //                 navigate("/chat");
-    //             } else {
-    //                 alert("You are not registered to this service");
-    //                 navigate("/signup");
-    //             }
-    //         })
-    //         .catch(err => console.log(err));
-    // };
 
     return (
         <div className='login-container'>
