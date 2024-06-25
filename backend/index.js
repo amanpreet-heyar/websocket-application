@@ -197,7 +197,7 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     res
       .status(201)
       .json({
-        location: ` https://websocket-application-server-git-main-amanpreetheyars-projects.vercel.app/uploads/${req.file.filename}`,
+        location: `https://websocket-application-server-git-main-amanpreetheyars-projects.vercel.app/uploads/${req.file.filename}`,
       });
   } catch (error) {
     res.status(500).send("Error saving image to the database");
