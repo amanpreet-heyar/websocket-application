@@ -19,7 +19,7 @@ const Chat = ({ user }) => {
   const fileUploadRef = useRef(null);
 
   useEffect(() => {
-    const newSocket = io("https://websocket-application-server-git-main-amanpreetheyars-projects.vercel.app");
+    const newSocket = io("websocket-application-server-git-main-amanpreetheyars-projects.vercel.app");
     setSocket(newSocket);
 
     newSocket.emit("addUser", { userId: user.id, userName: user.userName });
@@ -29,7 +29,7 @@ const Chat = ({ user }) => {
 
       const userWithImages = await Promise.all(otherUsers.map(async (usr) => {
         try {
-          const response = await axios.get(`https://websocket-application-server-git-main-amanpreetheyars-projects.vercel.app/user-image/${usr.userId}`);
+          const response = await axios.get(`http://localhost:5000/user-image/${usr.userId}`);
           return { ...usr, imageUrl: response.data.imageUrl };
         } catch (error) {
           console.error(`Error fetching image for user ${usr.userId}:`, error);
@@ -61,7 +61,7 @@ const Chat = ({ user }) => {
 
   const fetchMessages = async (selectedUser) => {
     try {
-      const response = await axios.get("https://websocket-application-server-git-main-amanpreetheyars-projects.vercel.app/messages", {
+      const response = await axios.get("http://localhost:5000/messages", {
         params: {
           senderId: user.id,
           receiverId: selectedUser.userId,
@@ -94,7 +94,7 @@ const Chat = ({ user }) => {
 
       console.log(formData, "form data===>");
 
-      const response = await fetch("https://websocket-application-server-git-main-amanpreetheyars-projects.vercel.app/upload", {
+      const response = await fetch("http://localhost:5000/upload", {
         method: "POST",
         body: formData,
       });
