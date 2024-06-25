@@ -16,10 +16,21 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: '*',
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
+    origin: [
+      "http://localhost:3000",
+      "https://websocket-application-client-git-main-amanpreetheyars-projects.vercel.app"
+    ],
+    methods: ["GET", "POST"],
+    headers: {
+      "Access-Control-Allow-Origin": "https://websocket-application-client-git-main-amanpreetheyars-projects.vercel.app",
+      "Access-Control-Allow-Credentials": true
+  },
+    credentials: true
+    // origin: '*',
+    // methods: '*',
+    // allowedHeaders: ['Content-Type', 'Authorization'],
+    // credentials: true,
+    
   },
 });
 
@@ -41,21 +52,21 @@ const db = mongoose.connection;
 db.on("error", (error) => console.error("MongoDB connection error:", error));
 db.once("open", () => console.log("MongoDB connection established"));
 
-// const corsOptions = {
-//   // origin: [
-//   //   "http://localhost:3000",
-//   //   "https://websocket-application-client-git-main-amanpreetheyars-projects.vercel.app"
-//   // ],
-//   // methods: ["GET", "POST"],
-//   // credentials: true
-//   origin: '*',
-//   methods: '*',
-//   allowedHeaders: ['Content-Type', 'Authorization'],
-//   credentials: true,
-// };
+const corsOptions = {
+  origin: [
+    "http://localhost:3000",
+    "https://websocket-application-client-git-main-amanpreetheyars-projects.vercel.app"
+  ],
+  methods: ["GET", "POST"],
+  headers: {
+    "Access-Control-Allow-Origin": "https://websocket-application-client-git-main-amanpreetheyars-projects.vercel.app",
+    "Access-Control-Allow-Credentials": true
+},
+  credentials: true
+}
 
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use('/uploads', express.static('/uploads'))
 // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -65,7 +76,7 @@ app.post("/login", (req, res) => {
   User.findOne({ email: email }).then((user) => {
     if (user) {
       if (user.password === password) {
-        res.json({ message: "Success",  
+        res.json({ message: "Success",   
         user: {
           id: user._id,
           email: user.email,
