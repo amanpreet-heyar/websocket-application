@@ -29,7 +29,7 @@ const io = new Server(server, {
   },
 });
 
-const PORT = 5000 || "https://websocket-application-server-git-main-amanpreetheyars-projects.vercel.app";
+const PORT = 5000 ;
 const MONGODB_URI =
   process.env.MONGODB_URI ||
   "mongodb+srv://amanpreet:61yXUNq8KTOa30Np@cluster0.1ezl4s6.mongodb.net/application";
