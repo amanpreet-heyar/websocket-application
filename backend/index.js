@@ -197,7 +197,7 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     res
       .status(201)
       .json({
-        location: ` http://localhost:5000/uploads/${req.file.filename}`,
+        location: ` https://websocket-application-server-git-main-amanpreetheyars-projects.vercel.app/uploads/${req.file.filename}`,
       });
   } catch (error) {
     res.status(500).send("Error saving image to the database");
@@ -211,7 +211,7 @@ app.get("/user-image/:userId", async (req, res) => {
   try {
     const image = await Image.findOne({ userId: userId });
     if (image) {
-      res.status(200).json({ imageUrl: `http://localhost:5000/${image.path}` });
+      res.status(200).json({ imageUrl: `https://websocket-application-server-git-main-amanpreetheyars-projects.vercel.app/${image.path}` });
     } else {
       res.status(404).json({ message: "Image not found" });
     }
