@@ -16,23 +16,20 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: [
-      "http://localhost:3000",
-      "https://websocket-application-client-git-main-amanpreetheyars-projects.vercel.app",
+      process.env.CLIENT_URL,
+      process.env.CLIENT_URL_PRODUCTION,
     ],
     methods: ["GET", "POST"],
     headers: {
-      "Access-Control-Allow-Origin":
-        "https://websocket-application-client-git-main-amanpreetheyars-projects.vercel.app",
+      "Access-Control-Allow-Origin": process.env.CLIENT_URL_PRODUCTION,
       "Access-Control-Allow-Credentials": true,
     },
     credentials: true,
   },
 });
 
-const PORT = 5000 ;
-const MONGODB_URI =
-  process.env.MONGODB_URI ||
-  "mongodb+srv://amanpreet:61yXUNq8KTOa30Np@cluster0.1ezl4s6.mongodb.net/application";
+const PORT = process.env.PORT || 5000 ;
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://amanpreet:61yXUNq8KTOa30Np@cluster0.1ezl4s6.mongodb.net/application";
 
 // MongoDB connection
 mongoose
@@ -197,7 +194,7 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     res
       .status(201)
       .json({
-        location: `https://websocket-application-server-git-main-amanpreetheyars-projects.vercel.app/uploads/${req.file.filename}`,
+        location: `${process.env.SERVER_URL_PRODUCTION}/uploads/${req.file.filename}`,
       });
   } catch (error) {
     res.status(500).send("Error saving image to the database");
@@ -211,7 +208,7 @@ app.get("/user-image/:userId", async (req, res) => {
   try {
     const image = await Image.findOne({ userId: userId });
     if (image) {
-      res.status(200).json({ imageUrl: `https://websocket-application-server-git-main-amanpreetheyars-projects.vercel.app/${image.path}` });
+      res.status(200).json({ imageUrl: `${process.env.SERVER_URL_PRODUCTION}/${image.path}` });
     } else {
       res.status(404).json({ message: "Image not found" });
     }

@@ -11,7 +11,7 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("https://websocket-application-server-git-main-amanpreetheyars-projects.vercel.app/signup", { userName, email, password })
+    axios.post(`${process.env.SERVER_URL_PRODUCTION}/signup`, { userName, email, password })
       .then(result => {
         console.log(result);
         navigate('/login');
